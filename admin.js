@@ -1,11 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.getElementById('table-body');
 
+    // Fonction pour formater les nombres avec des points de séparation
+    const formatNumber = (number) => {
+        return Number(number).toLocaleString('fr-FR', { minimumFractionDigits: 0 });
+    };
+
     // Fetch data from the server
-    fetch('http://localhost:3000/save')
+    fetch('https://formulaire-payement-back.onrender.com/save')
         .then(response => response.json())
         .then(data => {
             data.forEach((person, index) => {
+                person.payement = formatNumber(person.payement); // Formate le paiement avant d'ajouter à la table
                 addRowToTable(person, index);
             });
         })
